@@ -1,14 +1,9 @@
 package fedosov.agilityhackertest.camel;
 
-import fedosov.agilityhackertest.model.Customer;
+import fedosov.agilityhackertest.model.HolidayAgreement;
 import fedosov.agilityhackertest.model.LeaveRequest;
-import fedosov.agilityhackertest.repository.CustomerRepository;
-import fedosov.agilityhackertest.service.CustomerService;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,18 +19,6 @@ public class RestRoute extends RouteBuilder {
                 .apiProperty("cors", "true")
                 .apiContextRouteId("doc-api")
                 .bindingMode(RestBindingMode.json);
-//
-//        rest("/customer").description("User rest service")
-//                .consumes("application/json").produces("application/json")
-//                .get("/{id}").description("Find Customer by id").head().outType(Customer.class)
-//                .to("bean:customerService?method=findCustomer(${header.id})")
-//                .put().description("Update customer").type(Customer.class)
-//                .to("bean:customerService?method=createOrUpdateRequest")
-//                .post().description("Create customer").type(Customer.class)
-//                .to("bean:customerService?method=createOrUpdateRequest")
-//                .get("/findAll").description("Find all customers").outTypeList(Customer.class)
-//                .to("bean:customerService?method=findCustomers");
-
 
         rest("/leave-requests").description("Leave Request")
                 .consumes("application/json").produces("application/json")
@@ -48,6 +31,17 @@ public class RestRoute extends RouteBuilder {
                 .get("/").description("Find all customers").outTypeList(LeaveRequest.class)
                 .to("bean:leaveRequestService?method=findLeaveRequests");
 
+
+        rest("/holiday-agreements").description("Holiday Agreements")
+                .consumes("application/json").produces("application/json")
+                .get("/{id}").description("Successfully retrieved leave request with id").outType(HolidayAgreement.class)
+                .to("bean:holidayAgreementService?method=findHolidayAgreementById(${header.id})")
+                .put().description("Update Leave Request with ID").type(HolidayAgreement.class)
+                .to("bean:holidayAgreementService?method=createOrUpdateHolidayAgreement")
+                .post().description("Create customer").type(HolidayAgreement.class)
+                .to("bean:holidayAgreementService?method=createOrUpdateHolidayAgreement")
+                .get("/").description("Retrieve list of Holiday Agreements").outTypeList(HolidayAgreement.class)
+                .to("bean:holidayAgreementService?method=findHolidayAgreements");
 
     }
 

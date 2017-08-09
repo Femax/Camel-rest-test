@@ -11,9 +11,7 @@ import java.util.*;
 @Entity
 @Table(name = "leave_request")
 public class LeaveRequest {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+
     private String id;
     @Column
     @ElementCollection(targetClass = Integer.class,fetch = FetchType.EAGER)

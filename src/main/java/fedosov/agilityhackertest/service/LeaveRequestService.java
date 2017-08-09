@@ -1,6 +1,5 @@
 package fedosov.agilityhackertest.service;
 
-import fedosov.agilityhackertest.model.Customer;
 import fedosov.agilityhackertest.model.LeaveRequest;
 import fedosov.agilityhackertest.repository.LeaveRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
